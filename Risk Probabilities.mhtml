@@ -1,0 +1,1394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0049)https://web.stanford.edu/~guertin/risk.notes.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>Risk Probabilities</title>
+<style>
+b {color:white; background:black;}
+em {color:purple}
+u {color:red}
+i {color:green}
+</style>
+</head><body>
+<table border="0" cellpadding="0" cellspacing="0" height="auto" width="700px"><tbody><tr><td>
+<pre style="text-align: left; font-size: large;">Probability notes:
+
+The game of RISK is played such that two players are allowed to "attack"
+and "defend" in the following ways:
+
+a) the "attacker" may roll 1, 2, or 3 dice.
+b) the "defender" may roll 1 or 2 dice.
+c) the highest rolled attack dice is compared to
+   the highest rolled defense dice, and
+   1. the attacker loses if the attack dice &lt;= defense dice,
+   2. the defender loses if the attack dice &gt; defense dice.
+d) The compared dice are discarded, and if each player
+   still has dice left, repeat c) above.
+
+Standard dice have six faces numbered from 1 through 6.  The probability
+of throwing a specific number is 1/6.  If we call any specific number N,
+then the probability of throwing "N or less" with a single dice is the
+sum of the probabilities for each value from 1 to N.  This yields N/6 as
+the probability of throwing "N or less" with a single dice.  Likewise,
+the probability of throwing "more than N" is 1-(N/6) or (6-N)/6.
+
+When rolling two dice, the probability of rolling "N or less" is given
+by the multiplicative law as:  (N/6)(N/6).  For example, the probability
+of throwing 5 or less with two dice is 25/36.  Similarly, for three
+dice:  (N/6)(N/6)(N/6).  The general form is:  (N/6) to the i-th power,
+where "i" is the number of dice thrown.
+
+At this point, I'd like to introduce some notational convieniences.
+In most probability formulas I'll be dealing with, the "numerator" is
+defined as a series of terms, and the "demoninator" is a single value.
+For example, if probability P is defined as n/d (P=n/d), and Q is
+defined as 1-P, then we have the following:
+
+     P = n/d
+     Q = 1 - P
+       = 1 - (n/d)
+       = (d/d) - (n/d)
+       = (d-n)/d
+     Q = d-n [/d]
+
+The last line shows the special notation of [/d] meaning:
+"all divided by d".  This makes the numerator easier to read.
+You can think of the numerator as being the "frequency" of
+occurrence out of all possible outcomes.
+
+The other convention is for "x to the i-th power", which will be given
+as:  x'i
+
+For example:  x'0  = 1
+              x'1  = x
+              x'2  = x squared
+              x'3  = x cubed
+              x'4  = x to the 4-th power
+etc.
+
+Now let us examine some RISK cases.  First, the "1 on 1" attack, where
+the "attacker" rolls only one dice and the "defender" only rolls one
+dice.  If the "defender" rolls a 6, then the "attacker" loses regardless
+of what value he throws.  The probability of this event is:  (1/6)(6/6)
+since (1/6) is the probability the "defender" rolls a 6, and (6/6) is
+the probability the "attacker" rolls "6 or less".  If the "defender"
+rolls a 5, then the "attacker" loses if he rolls a 5 or less.  The
+probability of this event is:  (1/6)(5/6) since (1/6) is the probability
+the "defender" rolls 5, and (5/6) is the probability the "attacker"
+rolls "5 of less".  The sum of all these events (for N=1 to 6) yields
+the probability the "attacker" will lose, which is:
+
+   P(A loses) = (1/6) [(1+2+3+4+5+6)/6]
+              = 1+2+3+4+5+6 [/6'2]    = 21/36  = 756/1296
+
+In a "2 on 1" attack, we obtain:
+
+   P(A loses) = (1/6) [(1+4+9+16+25+36)/36]
+              = 1+4+9+16+25+36 [/6'3] = 91/216 = 546/1296
+
+Therefore, the probability the "defender" loses is:
+
+   P(D loses) = 1 - P(A loses)
+              = 216 - 91 [/6'3]      = 125/216 = 750/1296
+
+Since the "attacker" is using two dice, we must use the
+(N/6)'2 probabilities of throwing "N or less" in the sum.
+
+Likewise, in the "3 on 1" attack, we obtain:
+
+   P(A loses) = (1/6) [(1+8+27+64+125+216)/216]
+              = 1+8+27+64+125+216 [/6'4]       = 441/1296
+
+In a "1 on 2" attack, we can compute the probability the "attacker"
+loses by computing the probability the "defender" loses and subtract
+that from "unity".  The "defender" loses when the "attacker" rolls N
+with his dice, and the "defender" rolls "N-1 or less" with both of his
+dice.  The probabilities for the "defender" are:  (N-1/6)'2 for N=1 to
+6, which yields:
+
+     P(D loses) = (1/6) [(0+1+4+9+16+25)/36]
+                = 1+4+9+16+25 [/6'3] = 55/216  = 330/1296
+
+Therefore, the probability the "attacker" loses is:
+
+     P(A loses) = 1 - P(D loses)
+                = 216 - 55 [/6'3]   = 161/216  = 996/1296
+
+A summary of the probabilities we've computed thus far, in
+decending order by "attacker" losing, would look like this:
+
+  Attack    Defend    P(A loses)  P(D loses)
+
+     1   on   2       966/1296    330/1296
+
+     1   on   1       756/1296    540/1296
+
+     2   on   1       546/1296    750/1296
+
+     3   on   1       441/1296    855/1296
+
+When rolling two dice, the probablity, H(N,2), that the
+"highest" number rolled is "N", and the probability, L(N,2),
+that the "lowest" number rolled is "N" is given by:
+
+   N      1       2       3       4       5       6
+ H(N,2)   1       3       5       7       9      11   [/36]
+ L(N,2)  11       9       7       5       3       1   [/36]
+
+These probabilities are determined as follows:  The probability of
+throwing N on one dice AND "N or less" on the other is:  (1/6)(N-1)/6
+for N on the first dice and less than N on the second, plus (1/6)(N-1)/6
+for N on the second dice and less than N on the first dice, plus
+(1/6)(1/6) for N on both dice.  Thus:
+
+   H(N,2) = (1/6)(N-1)/6 + (1/6)(N-1)/6 + (1/6)(1/6) = (2N-1)/36
+
+Since the probability of throwing "more than N" on a dice is (6-N)/6,
+the probability of throwing N on one dice AND N or more on the other is:
+
+   L(N,2) = (1/6)(6-N)/6 + (1/6)(6-N)/6 + (1/6)(1/6) = (13-2N)/36
+
+Notice that for any particular N, the sum of H(N) and L(N) is 12/36 or
+1/3.  Also, when two dice are thrown, H(N) represents the probabilities
+of rolling N as the "highest" dice, and L(N) represents the probabilities
+of rolling N as the "lowest" dice.
+
+We could have arrived at these probabilities another way.  The
+probability of throwing N as the "highest" dice with two dice must the
+probability of throwing "N or less" MINUS the probability of throwing
+"N-1 or less" with two dice.  We already know that (N/6)'i gives the
+probability of throwing "N or less" with "i" dice, so the probability we
+desire is:  (N)'i - (N-1)'i [/6'i].  (Use M=N-1, calculate with M, then
+substitute N-1 for M.)
+
+    i       H(N,i) = (M+1)'i - M'i = (N)'i - (N-1)'i [/6'i]
+
+    1         1                      =  1            [/6]
+    2         2(N-1) + 1             =  2(N-1) + 1   [/36]
+    3         3(N-1)'2 + 3(N-1) + 1  =  3N(N-1) + 1  [/216]
+  etc.
+
+Notice that for i=2 we derive (2N-1)/36 as the probability of
+throwing N as the "highest" of two dice.
+
+In general, each column in a table of outcomes totals to (i/n)(n'i).
+For n=6, two dice sum to 1/3 of 36, 3 dice sum to 1/2 of 216, etc.
+
+With three dice, we get the following table:
+
+   N      1       2       3       4       5       6
+ H(N,3)   1       7      19      37      61      91   [/216]
+ M(N,3)  16      40      52      52      40      16   [/216]
+ L(N,3)  91      61      37      19       7       1   [/216]
+
+Notice that the sum of the H(N,i) probabilities for N from N=1
+through N=N is:  N'i [/6'i]  when "i" dice are thrown.
+This is a consequence of throwing "N or less" with "i" dice.
+
+In the "3 on 2" case, each column of probabilities under N for H(N,3)
+and L(N,3) sum to the same amount: 3 x 6'2 = 108.  Since H(N,3) is the
+reverse of L(N,3), we can determine the M(N,3) row in the table without
+a computer.  The Attacker table then becomes:
+
+  M(N,3) = 108 - H(N,3) - L(N,3)
+
+Let's return to the game of RISK and examine the probabilities for
+the "2 on 2" attack, where the attacker loses the first dice by:
+
+   1(1) + 3(4) + 5(9) + 7(16) + 9(25) + 11(36) [/6'4]  = 791 [/1296]
+
+and the defense loses the first dice by:
+
+   1(0) + 3(1) + 5(4) + 7(9)  + 9(16) + 11(25) [/6'4]  = 505 [/1296]
+
+What you see above are what I call "probability formulas", consisting
+of a numerator with a series of terms in which "multiple" means "and",
+and "sum" means "or".  These are "(A and B) or (C and D) ..." events.
+
+These probabilities were derived as follows:  The probability the
+attacker loses the first dice is the sum of the probabilities of the
+defender throwing N as his "highest" dice AND the attacker throws N or
+less as his "highest" dice.  The defender throwing N as his "highest" is
+given by H(N,2) [/6'2].  For example, if the defender throws 6 as his
+"highest" (with 11/36 probability), the attacker can throw 6 or less
+(anything) and loses.
+
+The probability the attacker throws N or less as his "highest" dice is
+the sum of the "highest" dice probabilities up to and including N.
+That's the sum of the H(N,2) probabilities thru N, which we already know
+is given by:  N'2 [/6'2].
+
+So the terms of the attacker loses formula are H(N,2)(N'2) [/6'4] for N
+from 1 thru 6.  For example, if the defender throws 6 as his "highest"
+(with 11/36 probability),the attacker can throw "6 or less"
+(anything=36/36) and loses.  That's the "11(36) [/6'4]" term in the
+attacker loses formula.
+
+Similarly, we can determine the probability that the defender loses the
+first dice.  If the attacker throws N as his "highest" dice, then the
+defender must throw N-1 or less as his "highest" dice to lose.  The N-1
+or less probabilities are again the sum of H(N) terms thru N-1, and the
+attacker's probability is H(N).  Again, the sum of these terms yields
+the probability that the defender loses the first dice.
+
+Once the first dice (highest) has been decided, we must determine the
+outcome of the second dice.  The second dice is always the "lowest" for
+both players.  L(N) gives the probabilities for each N being the "lowest".
+
+(defender wins) or (attacker loses) the second dice by:
+
+   11(11) + 9(20) + 7(27) + 5(32) + 3(35) + 1(36) [/6'4] = 791 [/1296]
+
+(attacker wins) or (defender loses) the second dice by:
+
+   11(0)  + 9(11) + 7(20) + 5(27) + 3(32) + 1(35) [/6'4] = 505 [/1296]
+
+These probabilities were derived in a manner similar to the first dice
+losses.  For example, the 5th term in the attacker equation is 3(35)
+which is the probability of the defender throwing 5 as his "lowest" dice
+(3/36), AND the attacker throws 5 or less as his "lowest" dice, which is
+the sum of L(N) from 1 thru 5 (35/36).  The sum is given by:  (12-N)(N)
+[/36]  for each value of N.  That is equivaluent to:  36 - (6-N)'2 [/36].
+
+A computer program was written to compute the probabilities for
+both the "2 on 2" and "3 on 2" attacks.  The results were:
+
+     Attacker loses:    "2 on 2"    "3 on 2"   Attacker wins:
+        neither           295         2890       both (1st+2nd)
+        only 1st          210         1834       only 2nd
+        only 2nd          210          777       only 1st
+        both (1st+2nd)    581         2275       neither
+     ----------------------------------------------------------
+     Total events:       1296         7776
+
+The computer derived counts for Attacker loses were 791 = 210 + 581
+(1st + both), and 505 = 295 + 210  (neither + 2nd) in the "2 on 2"
+attack, which corresponds to the probabilities that were computed for
+the "attacker" and "defender" losing the first compare (highest).
+Likewise, 791 = 210 + 581  (2nd + both), and 505 = 295 + 210
+(neither + 1st), which are the probabilities for the "attacker"
+and "defender" losing the second compare (lowest).
+A summary of the computer derived probabilities yields:
+
+                      Defend +2    Each +1    Attack +2
+  Attack    Defend    Attack -2    Each -1    Defend -2
+
+     2   on   2       581/1296    420/1296    295/1296
+     [/6'4] = 1296          1001/1296    715/1296
+
+     3   on   2       2275/7776   2611/7776   2890/7776
+     [/6'5] = 7776          4886/7776   5501/7776
+
+The two probabilities listed on lines by themselves are the sums of the
+two nearest terms above them, and they represent the "attacker" or
+"defender" loses "at least one".
+
+For the "3 on 2" scenario, my computer program "rolls" all combinations of
+3-dice for the attacker, like an odometer; sorts each result into a separate
+descending list, and then does all combinations of 2-dice for the defender,
+and sorts each result into another list.  It compares 1st-to-1st in each list
+(1st battle), then 2nd-to-2nd (2nd battle), and then takes 0 and adds 1 for
+the 1st attacker win, and 2 for the 2nd attacker win.  The result is 0,1,2,3,
+an index into a table of four counters that record:  attacker wins another at
+this index.  After doing all combinations for the defender, I then go back and
+get another attacker list, and run the defender combinations against that, etc.
+When I'm all done (all attacker with all defender combinations), I have a
+table of four-values for attacker wins:  none, 1st only, 2nd only, or both.
+That table contains:  2890, 1834, 777, 2275 which matches the Attacker wins
+column shown earlier.  Many sites which discuss Risk Probabilities sum together
+the 1834 and 777 to give a 2611 probabality for each winning only one battle.
+
+It's interesting to note that by using the H(N) values for the "highest"
+of three dice, along with the "N or less" figures for both i=2 and i=3,
+we can compute the probabilities of the "attacker" losing the first
+dice, and the "defender" losing the first dice in the "3 on 2" attack as
+follows:
+
+(defender wins) or (attacker loses) the first dice by:
+
+D(sA) = 1(1) + 3(8) + 5(27) + 7(64) + 9(125) + 11(216) = 4109
+A(sD) = 1(36) + 7(35) + 19(32) + 37(27) + 61(20) + 91(11) = 4109
+
+(attacker wins) or (defender loses) the first dice by:
+
+A(sD) = 1(0) + 7(1) + 19(4) + 37(9) + 61(16) + 91(25)  = 3667
+D(sA) = 1(215) + 3(208) + 5(189) + 7(152) + 9(91) + 11(0) = 3667
+
+The notations: (sA) and (sD) mean "partial sum of terms" for A and D.
+
+These values correspond exactly with the computer derived values:
+
+   4109 = 2275 + 1834   and   3667 = 2890 + 777
+
+To see if I could shed more light on this problem, I wrote another
+computer program which not only computed the probabilities for the
+four cases: Attacker wins both, Attacher wins 2nd only, Attacker wins
+1st only, and finally, Attacker wins none; but also output the number
+of times each dice value was rolled for each case.  By that I mean, it
+showed the number of times 1, 2, 3, 4, 5, 6 was rolled in the event.
+I output these as tables, six wide by four deep.  There are tables for
+all 3 of the Attacker's dice, and 2 tables for Defender's dice.
+Here are the tables:
+
+ Dice number thrown       1    2    3    4    5    6
+                                                            Summation
+ First battle (1st die)
+ Attacker wins both       0    4    55   255  766  1810          2890
+ Attacher wins 2nd only   0    40   184  414  616  580           1834
+ Attacker wins 1st only   0    3    21   78   210  465           777
+ Attacher loses both      36   205  424  585  604  421           2275
+
+ Second battle (2nd die)
+ Attacker wins both       0    220  568  846  856  400           2890
+ Attacher wins 2nd only   0    220  472  558  424  160           1834
+ Attacker wins 1st only   165  270  210  105  27   0             777
+ Attacher loses both      411  730  622  363  133  16            2275
+
+ Attacker 3rd die
+ Attacker discard both    885  811  622  384  163  25            2890
+ Attacker discard 2nd     630  550  376  198  70   10            1834
+ Attacker discard 1st     465  210  78   21   3    0             777
+ Attacker discard none    1296 625  256  81   16   1             2275
+                                                                   ^
+ Summation                3888 3888 3888 3888 3888 3888 &lt;- 7776/2  ^
+                                                                 7776
+ First battle (1st die)
+ Defender loses both      200  552  774  800  564  0             2890
+ Defender loses 2nd only  0    8    54   192  500  1080          1834
+ Defender loses 1st only  15   72   171  264  255  0             777
+ Defender wins  both      1    16   81   256  625  1296          2275
+
+ Second battle (2nd die)
+ Defender loses both      1420 880  432  142  16   0             2890
+ Defender loses 2nd only  780  560  324  138  32   0             1834
+ Defender loses 1st only  75   192  243  192  75   0             777
+ Defender wins  both      101  312  513  608  525  216           2275
+                                                                   ^
+ Summation                2592 2592 2592 2592 2592 2592 &lt;- 7776/3  ^
+                                                                 7776
+
+Notice that each row of the four events add up to the four probabilities.
+Also notice that the columns for the three Attacker dice add up to 7776/2,
+and the Defender dice columns add up to 7776/3.  When the Attacker wins with
+a 6, the Defender didn't roll a 6, otherwise the Defender would win.  That's
+why you see 0 under the 6 for Defender losing both and 1st in the first battle,
+and all three losing cases in the second battle.  There must be a clue here.
+
+Don't misinterpret the numbers in the rows of these tables.  For example, in
+the First battle, the Defender loses 2nd only, the Defender rolled a 6 and won
+the 1st battle, but not the 2nd battle.  Each set of four rows shows Attacker
+wins: both, only 2nd, only 1st, or neither.  The Attacker and Defender dice for
+BOTH battles populate these four rows in every table, with one table for each
+die rolled by each player.  So when the Attacker rolled a 6 in the 1st battle,
+and the Defender rolled 5 or less (not a 6), the Attacker won the 1st battle.
+This is a complex matrix to understand.
+
+What is the probability the "Attacker" will win both dice in a "2 on 2"
+or "3 on 2" attack?  Without the computer, I'm unable to answer that
+question!  What laws apply?
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+I then wrote another computer program designed to show the probabilities
+of rolling N as the "highest", "next highest", etc. down to "lowest"
+when rolling "i" dice.  I got:
+
+              N       1       2       3      4      5      6
+
+   For i=2   H(N)     1       3       5      7      9     11
+   [/36]     L(N)    11       9       7      5      3      1
+
+   For i=3   H(N)     1       7      19     37     61     91
+   [/216]    M(N)    16      40      52     52     40     16
+             L(N)    91      61      37     19      7      1
+
+   For i=4   H(N)     1      15      65    175    369    671
+   [/1296]           21     123     261    363    357    171
+                    171     357     363    261    123     21
+             L(N)   671     369     175     65     15      1
+
+Notice that each column adds to the same amount, which turns out to be:
+i x 6'(i-1) [/6'i]  (expressed as probabilities).  These turn out to be
+simply i/6, yielding the series: 2/6, 3/6, 4/6, 5/6.  You can also see
+that the sum of H(N) terms from 1 thru N is equal to N'i at all times.
+For example, for i=4 at N=3 you have: 3'4 = 1+15+65 = 81.
+
+From what I've observed, it appears reasonable to generalize the
+probability the "attacker" (and "defender") lose the first dice compare
+("highest") when rolling n-sided dice where each side has a different
+number, and all sides are equally probable.  If the "attacker" rolls "a"
+dice, and the "defender" rolls "d" dice, and they are n-sided dice
+(n&gt;=2), then the probabilies for the "attacker" and "defender" losing
+the "highest" are:
+
+   P(A loses) = 1 - P(D loses)  or
+   P(A loses) = Sum {(k'd - (k-1)'d) (k'a)}[/n'(a+d)]  for k=1 to n
+
+   P(D loses) = 1 - P(A loses)  or
+   P(D loses) = Sum {(k'a - (k-1)'a) ((k-1)'d)}[/n'(a+d)]  for k=1 to n
+
+Each sum is divided by [/n'(a+d)] to make it a probability.
+
+When k=1, the P(A) term equals one, and the P(D) term is zero.  If all
+the terms for both P(A) and P(D) are added together, you will notice
+that almost all terms cancel.  Only (n'd)(n'a) is left, which is the
+same as n'(a+d)[/n'(a+d)], or total of 1.
+
+Using these formulas I was able to obtain the same values of probability
+for P(A loses) and P(D loses) for all cases where either A or D throws
+only one dice, that is, all "a on 1" or "1 on d" attacks.
+
+We could devise a case with n=2 using coins where a "head" is considered
+to be higher in value than a "tail".  In such a case, if the "attacker"
+tossed 2 coins, and the "defender" also tossed 2 coins, we'd get:
+
+    P(A) = 1 +  (2'2-1)(2'2) [/2'4] = 13/16
+    P(D) = 0 +  (2'2-1)(1)   [/2'4] =  3/16
+
+as the probabilities of losing the first compare.  Determining the
+probability of loss for the second compare can be done like the "2 on 2"
+dice problem, but a generalization for the second (or subsequent)
+compare, especially with "a" or "d" being 3 or more, does not seem easy.
+In fact, deriving the probability the "attacker" loses ALL compares,
+when there are two or more, does not seem possible!  Any ideas?
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+In the "3 on 2" attack, each column of probabilities under N for H(N,3)
+and L(N,3) sum to the same amount: 3 x 6'2 = 108.  Since H(N,3) is the
+reverse of L(N,3), we can determine the M(N,3) row in the table without
+the computer.  The Attacker table then becomes:
+
+  M(N,3) = 108 - H(N,3) - L(N,3)
+
+    N        1       2       3      4      5      6
+  H(N,3)     1       7      19     37     61     91   [/216]
+  M(N,3)    16      40      52     52     40     16   [/216]
+  L(N,3)    91      61      37     19      7      1   [/216]
+
+The Defender table is as follows:
+
+   N      1       2       3       4       5       6
+ H(N,2)   1       3       5       7       9      11   [/36]
+ L(N,2)  11       9       7       5       3       1   [/36]
+
+We already computed 1st dice losses earlier, as follows:
+
+(defender wins) or (attacker loses) the first dice by:
+
+D(sA) = 1(1) + 3(8) + 5(27) + 7(64) + 9(125) + 11(216) = 4109
+A(sD) = 1(36) + 7(35) + 19(32) + 37(27) + 61(20) + 91(11) = 4109
+
+(attacker wins) or (defender loses) the first dice by:
+
+A(sD) = 1(0) + 7(1) + 19(4) + 37(9) + 61(16) + 91(25)  = 3667
+D(sA) = 1(215) + 3(208) + 5(189) + 7(152) + 9(91) + 11(0) = 3667
+
+The notations: (sA) and (sD) mean "partial sum of terms" for A and D.
+
+We can determine that the defender will lose the 2nd dice
+compare when the following conditions are true:
+
+      Defender rolls a 1, and Attacker rolls more than 1,
+  or  Defender rolls a 2, and Attacker rolls more than 2,
+  or  Defender rolls a 3, and Attacker rolls more than 3,
+  or  Defender rolls a 4, and Attacker rolls more than 4,
+  or  Defender rolls a 5, and Attacker rolls more than 5,
+  or  Defender rolls a 6, and Attacker rolls more than 6. (0)
+
+The Defender terms are L(N,2), and the Attacker terms are the
+sum of the M(N,3) terms above the given N.  Therefore:
+
+D(sA) = 11(200) + 9(160) + 7(108) + 5(56) + 3(16) + 1(0) = 4724
+A(sD) = 16(0) + 40(11) + 52(20) + 52(27) + 40(32) + 16(35) = 4724
+
+This is the probability the Defender loses the 2nd dice, and
+it matches the computer derived value:  4724 = 2890 + 1834.
+
+The Attacker loses the 2nd dice can be simply determined as:
+
+    P(A loses) = 1 - P(D loses) = 7776 - 4724 = 3052 [/7776]
+
+This probability also matches the computer derived value:
+
+    3052 = 2275 + 777
+
+This probability could also be derived from L(N,2) and M(N,3)
+for Defender and Attacker starting with the following:
+
+    Defender rolls a 1, and Attacker rolls 1,
+ or Defender rolls a 2, and Attacker rolls 2 or less,
+ or Defender rolls a 3, and Attacker rolls 3 or less,
+ or Defender rolls a 4, and Attacker rolls 4 or less,
+ or Defender rolls a 5, and Attacker rolls 5 or less,
+ or Defender rolls a 6, and Attacker rolls 6 or less (anything).
+
+Therefore:
+
+D(sA) = 11(16) + 9(56) + 7(108) + 5(160) + 3(200) + 1(216) = 3052
+A(sD) = 16(1) + 40(4) + 52(9) + 52(16) + 40(25) + 16(36) = 3052
+
+We now have the following compare probabilities:
+
+    4724 = Defender loses 2nd, Attacker wins 2nd
+    3667 = Defender loses 1st, Attacker wins 1st
+    3052 = Attacker loses 2nd, Defender wins 2nd
+    4109 = Attacker loses 1st, Defender wins 1st
+
+Therefore:
+
+    4724 = Defender loses both  +  Defender loses only 2nd.
+    3667 = Defender loses both  +  Defender loses only 1st.
+    3052 = Attacker loses both  +  Attacker loses only 2nd.
+    4109 = Attacker loses both  +  Attacker loses only 1st.
+
+When the Attacker wins both, the Defender loses both.
+When the Attacker wins only the 1st, the Defender wins only the 2nd.
+When the Attacker wins only the 2nd, the Defender wins only the 1st.
+When the Attacker loses only the 1st, the Defender loses only the 2nd.
+When the Attacker loses only the 2nd, the Defender loses only the 1st.
+When the Attacker loses both, the Defender wins both.
+
+Unfortunately, these are all dependent equations, and you can't figure
+out "Attacker loses both".
+
+What we are looking for is a solution for the following table:
+
+     Attacker loses:    "2 on 2"    "3 on 2"   Attacker wins:
+        neither           295         2890       both (1st+2nd)
+        only 1st          210         1834       only 2nd
+        only 2nd          210          777       only 1st
+        both (1st+2nd)    581         2275       neither
+     ----------------------------------------------------------
+     Total events:       1296         7776
+
+Determine above given what we derived from the probability formulas:
+
+    "2 on 2"    "3 on 2"
+      505         4724     Defender loses both + Defender loses 2nd
+      505         3667     Defender loses both + Defender loses 1st
+      791         3052     Attacker loses both + Attacker loses 2nd
+      791         4109     Attacker loses both + Attacker loses 1st
+    ---------------------------------------------------------------
+
+SPECIAL NOTE:  I can't explain why, but H(6,3)[6] = 91, and also
+36 - H(6,2)[6] = 25, and the product is 2275, Defender wins both battles.
+H(N,3)[6] is the probability 91/216 that the Attacker rolls a 6.
+H(N,2)[6] is the probability 11/36  that the Defender rolls a 6,
+Subtraclting that from 36 yields 25/36, the probability Defender
+does NOT roll a 6 with either of his dice. Apparently, 25(91) = 2275
+which is the probability the Attacker will LOSE BOTH battles. Why?
+If this can be explained, this problem can be solved by four equations
+with four unknowns, where the fourth unknown is now known to be 2275.
+
+  Defender loses in "3 on 2"
+     W   loses both
+     X   loses 2nd only
+     Y   loses 1st only
+     Z   wins both (1st+2nd)
+
+  W+X = 4724
+  W+Y = 3667
+  Z+Y = 3052
+  Z+X = 4109
+
+  Replace Z by 2275, and solve for X, Y, and finally W.  Result should be:
+
+     W = 2890
+     X = 1834
+     Y =  777
+     Z = 2275
+
+Honestly, I think this is just a coincidence because the same "trick"
+doesn't work for the "2 on 2" tables.
+
+</pre><hr><a name="here"></a><a href="https://web.stanford.edu/~guertin/risk.notes.html#here"> </a>
+<pre style="text-align: left; font-size: large;">
+Thanks to the web site "Murderous Maths: The Unknown Formula!"
+I found this formula:  (S+N-1)! / ((N-1)! S!)
+where N is the total number of items to choose from,
+and S is the number of items you're allowed to choose.
+
+This did help in solving this Risk problem.  When we throw
+3 dice, we get 56 unique combinations of the 6 numbers.
+That's derived: (8)! / (5! * 3!) = 40320 / (120 * 6)
+because S=3 (selectors) and N=6 (choices per dice).
+Likewise, throwing 2 dice gives 21 unique combinations.
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+I wrote another computer program to examine the unique pairs of dice used in
+the compare processes, both for the 2 on 2, and 3 on 2 cases.  What I discovered
+is that there are only 21 unique pairs for both cases.  However, some pairs
+occur many times, especially for the 3 on 2 case.  That's because the 56 unique
+triplets collapse down to just 21 pairs because the 3rd dice is always less than
+or equal to the 2nd dice, which is always less than or equal to the 1st dice.
+Here are the two tables, first for the 3 attacker dice in the 3 on 2 scenario, and
+then the 2 dice for the defender in that case, and both players in the 2 on 2 case.
+I also discovered I could construct these pairs manually, without a computer.
+
+   Times   1st    2nd   3 dice rolled - 216 combinations - 21 unique
+
+     1      1      1
+     3      2      1
+     4      2      2
+     3      3      1
+     9      3      2
+     7      3      3
+     3      4      1
+     9      4      2
+    15      4      3
+    10      4      4
+     3      5      1
+     9      5      2
+    15      5      3
+    21      5      4
+    13      5      5
+     3      6      1
+     9      6      2
+    15      6      3
+    21      6      4
+    27      6      5
+    16      6      6
+
+   Times   1st    2nd   2 dice rolled - 36 combinations - 21 unique
+
+     1      1      1
+     2      2      1
+     1      2      2
+     2      3      1
+     2      3      2
+     1      3      3
+     2      4      1
+     2      4      2
+     2      4      3
+     1      4      4
+     2      5      1
+     2      5      2
+     2      5      3
+     2      5      4
+     1      5      5
+     2      6      1
+     2      6      2
+     2      6      3
+     2      6      4
+     2      6      5
+     1      6      6
+
+The "Times" column indicates how many times the 1st &amp; 2nd dice occur in the 21
+cases.  For example, the 6,5 pair occurs 27 times out of the 216 combinations.
+The 3rd dice contributes to these pairs once the 3 dice are sorted to get the
+highest and next highest (1st &amp; 2nd).  These tables are the genesis for the
+H,M,L tables for both 3-dice and 2-dice.  For each dice number, 1st or 2nd,
+sum the "Times" values and you'll get the values in the H,M or H,L tables.
+What's missing in the H,M,L tables is the frequency of each pair, 1st and 2nd.
+For the attacker to lose both battles, all 21 of the 3-dice table must be matched
+with all 21 of the 2-dice table, multiplying their frequencies according to the
+win/loss nature of the comparisons of the two 1st's and two 2nd's.  That should
+give the four numbers for win-both, win-1st, win-2nd, lose both.  Use the 2-dice
+table twice, once with another 2-dice table, and once with the 3-dice table.
+
+           Attacker Loses Tables for both 2x2 and 3x2 cases
+
+ 2x2       1   2   1   2   2   1   2   2   2   1   2   2   2   2   1   2   2   2   2   2   1
+ 3x2       1   3   4   3   9   7   3   9  15  10   3   9  15  21  13   3   9  15  21  27  16
+         1,1 2,1 2,2 3,1 3,2 3,3 4,1 4,2 4,3 4,4 5,1 5,2 5,3 5,4 5,5 6,1 6,2 6,3 6,4 6,5 6,6
+
+ 1  1,1   LB  <b>L2</b>  LN  <b>L2</b>  LN  LN  <b>L2</b>  LN  LN  LN  <b>L2</b>  LN  LN  LN  LN  <b>L2</b>  LN  LN  LN  LN  LN
+ 2  2,1   LB  LB  L1  <b>L2</b>  LN  LN  <b>L2</b>  LN  LN  LN  <b>L2</b>  LN  LN  LN  LN  <b>L2</b>  LN  LN  LN  LN  LN
+ 1  2,2   LB  LB  LB  <b>L2</b>  <b>L2</b>  LN  <b>L2</b>  <b>L2</b>  LN  LN  <b>L2</b>  <b>L2</b>  LN  LN  LN  <b>L2</b>  <b>L2</b>  LN  LN  LN  LN
+ 2  3,1   LB  LB  L1  LB  L1  L1  <b>L2</b>  LN  LN  LN  <b>L2</b>  LN  LN  LN  LN  <b>L2</b>  LN  LN  LN  LN  LN
+ 2  3,2   LB  LB  LB  LB  LB  L1  <b>L2</b>  <b>L2</b>  LN  LN  <b>L2</b>  <b>L2</b>  LN  LN  LN  <b>L2</b>  <b>L2</b>  LN  LN  LN  LN
+ 1  3,3   LB  LB  LB  LB  LB  LB  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  LN  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  LN  LN
+ 2  4,1   LB  LB  L1  LB  L1  L1  LB  L1  L1  L1  <b>L2</b>  LN  LN  LN  LN  <b>L2</b>  LN  LN  LN  LN  LN
+ 2  4,2   LB  LB  LB  LB  LB  L1  LB  LB  L1  L1  <b>L2</b>  <b>L2</b>  LN  LN  LN  <b>L2</b>  <b>L2</b>  LN  LN  LN  LN
+ 2  4,3   LB  LB  LB  LB  LB  LB  LB  LB  LB  L1  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  LN  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  LN  LN
+ 1  4,4   LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  <b>L2</b>  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  <b>L2</b>  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  LN
+ 2  5,1   LB  LB  L1  LB  L1  L1  LB  L1  L1  L1  LB  L1  L1  L1  L1  <b>L2</b>  LN  LN  LN  LN  LN
+ 2  5,2   LB  LB  LB  LB  LB  L1  LB  LB  L1  L1  LB  LB  L1  L1  L1  <b>L2</b>  <b>L2</b>  LN  LN  LN  LN
+ 2  5,3   LB  LB  LB  LB  LB  LB  LB  LB  LB  L1  LB  LB  LB  L1  L1  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  LN  LN
+ 2  5,4   LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  L1  <b>L2</b>  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN  LN
+ 1  5,5   LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  <b>L2</b>  <b>L2</b>  <b>L2</b>  <b>L2</b>  <b>L2</b>  LN
+ 2  6,1   LB  LB  L1  LB  L1  L1  LB  L1  L1  L1  LB  L1  L1  L1  L1  LB  L1  L1  L1  L1  L1
+ 2  6,2   LB  LB  LB  LB  LB  L1  LB  LB  L1  L1  LB  LB  L1  L1  L1  LB  LB  L1  L1  L1  L1
+ 2  6,3   LB  LB  LB  LB  LB  LB  LB  LB  LB  L1  LB  LB  LB  L1  L1  LB  LB  LB  L1  L1  L1
+ 2  6,4   LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  L1  LB  LB  LB  LB  L1  L1
+ 2  6,5   LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  L1
+ 1  6,6   LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB  LB
+
+The table above is for both cases, and the top two lines show the frequencies of the attacker pairs,
+which follow on the line below from 1,1 through 6,6.  The left side of the table shows the frequencies
+for the defender pairs which follow in the neighboring column.  This is a 21 by 21 table, with 441 spots
+filled with codes:  LB, L1, L2, LN  meaning Attacker Loses (Both, 1st, 2nd, Neither).  The L2 entries are
+highlighted to help you focus on how the table works.  For each line with L2's, scan across the line and
+sum the frequencies above each L2.  Then multiply that by the frequency at the start of the line.  There
+are 15 rows with L2's, so you should get 15 products.  Sum them and you should get 777 which is the number
+of times the Attacker loses ONLY the 2nd battle.  You can do the same thing with L1, LB, and LN.  That's
+the simplest method, without using a computer, to solve this problem.  From these earlier formulas:
+
+(attacker wins) or (defender loses) the first dice by:
+
+A(sD) = 1(0) + 7(1) + 19(4) + 37(9) + 61(16) + 91(25)  = 3667
+D(sA) = 1(215) + 3(208) + 5(189) + 7(152) + 9(91) + 11(0) = 3667
+
+We can derive the "Attacker wins both" as follows:  3667 - 777 = 2890.  That's for 3x2.
+
+If you use the 2x2 frequencies, L2 yields 210. Thus:  505 - 210 = 295.  That's for 2x2.
+
+Remember, we've already determined the following identities are true:
+
+<u>When the Attacker wins both, the Defender loses both.</u>
+When the Attacker wins only the 1st, the Defender wins only the 2nd.
+When the Attacker wins only the 2nd, the Defender wins only the 1st.
+When the Attacker loses only the 1st, the Defender loses only the 2nd.
+<u>When the Attacker loses only the 2nd, the Defender loses only the 1st.</u>
+When the Attacker loses both, the Defender wins both.
+
+For the 3x2:   3667 = Defender loses both  +  Defender loses only 1st.
+
+To obtain "Attacker wins both" we start with the above combined value to find "Defender loses both".
+We must subtract "Defender loses only 1st" which is equivalent to "Attacker loses only 2nd", to
+obtain "Defender loses both", which is equivalent to "Attacker wins both", our final answer.
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+The 21 unique pairs shown above are determined as follows:  x,x for 1&lt;=x&lt;=6 creates 6 unique combinations
+with a frequency of 1.  x,y and y,x create 2 occurrences which sort into x,y with x &gt; y.  There are 15
+combinations: 2,1 3,1 3,2 4,1 4,2 4,3 5,1 5,2 5,3 5,4 6,1 6,2 6,3 6,4, 6,5.  The number of pairs is found
+using the "Triangular Number" formula:  n(n+1)/2  where n = 5  for the five values of x involved.  When we
+combine the x,x and x,y pairs in order, we get the Defender's combinations AND frequencies shown on the
+left side of the table.  The Attacker's combinations of two dice are identical for both the 2x2 and 3x2
+cases, with the same frequencies for 2x2.  But 3x2 has different frequencies.
+
+In 3x2, three-dice are tossed.  They can be x,x,x or x,x,y or x,y,z.  x,x,x are unique, and there are 6 of
+them, and when you drop the last x you get x,x with a frequency of 1 for each.  x,x,y can occur three ways:
+x,x,y or x,y,x or y,x,x.  Sort these placing the highest dice first.  If you got x,x,y after the sort, you
+drop the y, and the frequency is 3 TIMES (x-1).  If y is first, relabel y,x,x into x,y,y and drop the last y,
+The frequency of this x,y is 3 TIMES y.  Finally, there's the x,y,z group where all three dice have different
+values, like 2,1,6.  There are 6 possible arrangements:  x,y,z x,z,y y,x,z y,z,x z,x,y z,y,x.  When sorted,
+you get one arrangement with x &gt; y &gt; z, like 6,2,1.  When you drop the last dice (the lowest), you get x,y
+with a frequency that varies by the discarded dice, which must be 1&lt;=z&lt;y, or y-1 times.  So each x,y has
+a frequency of 6 TIMES (y-1).  The minimum y is 2, and maximum is 5.  When you combine these x,y frequencies
+with the ones from x,y above, you get the total frequency for these x,y pairs.  Likewise, combine all the x,x
+frequencies for the same x, including the unique ones from x,x,x.
+
+If you examine the frequencies for 6,1 6,2 6,3 6,4 6,5 for the 3x2 case, you'll see 6,1 starts at 3 for the
+three combinations: 6,1,1 1,6,1 1,1,6.  Then each of the following is 6 more than the one before, ending with
+the 27 combinations of 6,5 with 1 through 5.  Remember, 6 can occur in any position, and move to the front.
+Basically, you're looking at all permutations of x,5,6 for 1&lt;=x&lt;=5, three for 5,5,6 and six for each of
+the rest (x&lt;=4).&nbsp; Thus, 6(4)+3 = 27.&nbsp; For 6,6 you get three 6,6,y for 1&lt;=y&lt;=5, plus one for 6,6,6 (16).
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+Definition:  An n-sided die has "n" faces (n=2x for x&gt;0), and
+each face has a different numerical value, N, in the range:  N=1
+to n.  Each die is assumed to be balanced so that the probability
+of any face occurring when a die is tossed is given by:  1/n.   A
+6-sided die is called a "standard die".  The word "dice" will be
+used to mean one or more n-sided balanced die.
+
+Theorem-1: The probability, E(N,i), of throwing "N or less" using
+"i" n-sided dice for any N in the range: N=0 to n, is:
+
+   E(N,i) = (N/n)'i  or  N'i [/n'i]
+
+Theorem-2: The probability, H(N,i), of throwing N as the "highest"
+valued dice using "i" n-sided dice for any N in the range:
+N=1 to n, is:
+
+   H(N,i) = E(N,i) - E(N-1,i)
+
+Definition:  An "attacker", A, throws "a" dice.  A "defender", D,
+throws "d" dice.  The "highest" dice rolled by each are compared,
+and A loses one point if the value of D's "highest" dice is equal
+to or greater than the value of A's "highest" dice; otherwise, D
+loses one point.  The compared dice are discarded, and if both A
+and D still have dice left, we repeat the compare process above.
+This is the "game of RISK" in which there is an "a on d" attack.
+
+Problem:  What is the probability that A will lose two points in
+a "2 on 2" attack using standard dice in the game of RISK?
+
+Theorem-3: The probability, P(a,d,n), that A will lose the first
+compare (first "highest") using n-sided dice when A throws "a"
+dice and D throws "d" dice is:
+   P(a,d,n) = Sum:  H(k,d) x E(k,a) [/n'(a+d)]  for k=1 to n
+
+Theorem-4: The probability, Q(a,d,n), that D will lose the first
+compare (given the same circumstances) is:
+   Q(a,d,n) = Sum:  H(k,a) x E(k-1,d) [/n'(a+d)]  for k=1 to n
+
+Note:  P(a,d,n) + Q(a,d,n) = 1
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+The following tables are H(N) thru L(N) for 2 or more dice which
+have n-sides.  The tables show the count of times the dice had
+1 thru N as their highest value for each set of dice.  H(N) is
+always line 1, and L(N) is always the last line in each table.
+Theorem-3,4 can compute the probabilities for other than the
+first compare by using the H and E values from the i-th row
+in these tables, where "i" represents the i-th compare.
+The tables show the H values, and the E values are the sum
+of the H values up to the desired column position (k or k-1).
+N is 6, and the column index is the number of dice thrown.
+
+
+   |      1      2      3      4      5      6      46656
+---|------------------------------------------
+ 1 |      1     63    665   3367  11529  31031
+ 2 |     31    801   4271  11281  17991  12281
+ 3 |    406   4266  11366  15706  12006   2906
+ 4 |   2906  12006  15706  11366   4266    406
+ 5 |  12281  17991  11281   4271    801     31
+ 6 |  31031  11529   3367    665     63      1
+
+
+
+   |      1      2      3      4      5      6       7776
+---|------------------------------------------
+ 1 |      1     31    211    781   2101   4651
+ 2 |     26    326   1106   2126   2666   1526
+ 3 |    276   1356   2256   2256   1356    276
+ 4 |   1526   2666   2126   1106    326     26
+ 5 |   4651   2101    781    211     31      1
+
+
+
+   |      1      2      3      4      5      6       1296
+---|------------------------------------------
+ 1 |      1     15     65    175    369    671
+ 2 |     21    123    261    363    357    171
+ 3 |    171    357    363    261    123     21
+ 4 |    671    369    175     65     15      1
+
+
+
+   |      1      2      3      4      5      6        216
+---|------------------------------------------
+ 1 |      1      7     19     37     61     91
+ 2 |     16     40     52     52     40     16
+ 3 |     91     61     37     19      7      1
+
+
+
+   |      1      2      3      4      5      6         36
+---|------------------------------------------
+ 1 |      1      3      5      7      9     11
+ 2 |     11      9      7      5      3      1
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+The following table is for 4-sided dice (1-4).
+
+
+   |      1      2      3      4     4096
+---|----------------------------
+ 1 |      1     63    665   3367
+ 2 |     19    429   1739   1909
+ 3 |    154   1254   1994    694
+ 4 |    694   1994   1254    154
+ 5 |   1909   1739    429     19
+ 6 |   3367    665     63      1
+
+
+
+   |      1      2      3      4     1024
+---|----------------------------
+ 1 |      1     31    211    781
+ 2 |     16    176    456    376
+ 3 |    106    406    406    106
+ 4 |    376    456    176    106
+ 5 |    781    211     31      1
+
+
+
+   |      1      2      3      4      256
+---|----------------------------
+ 1 |      1     15     65    175
+ 2 |     13     67    109     67
+ 3 |     67    109     67     13
+ 4 |    175     65     15      1
+
+
+
+   |      1      2      3      4       64
+---|----------------------------
+ 1 |      1      7     19     37
+ 2 |     10     22     22     10
+ 3 |     37     19      7      1
+
+
+
+   |      1      2      3      4       16
+---|----------------------------
+ 1 |      1      3      5      7
+ 2 |      7      5      3      1
+
+
+
+   |      1      2      4
+---|--------------
+ 1 |      1      3
+ 2 |      3      1
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+There are several observations that should be made about these
+tables.  First, L(N) is always the reverse of H(N), and H(N)
+always has values determined by Theorem-2 for "i" dice.  Also,
+the tables are "saddle shaped" in that they are symetric from
+upper left to lower right, and upper right to lower left.
+Each column sums to: i x n'(i-1)  for "i" dice with "n" sides.
+
+If the dice have "n" sides, and there are "i" dice involved,
+the left column's values are determined as follows:
+Place n-1, i downto 1, 1 to i in columns as shown below, and
+multiple by the previous entry (starting with 1), and add the
+result to previous table entry to obtain the next table entry.
+
+i=5| n=6 sided dice
+---|-------------------------------------
+ 1 |                               &gt;    1
+   &gt;  5 * 5 / 1 *     1 =     25  &lt;
+ 2 |                               &gt;   26
+   &gt;  5 * 4 / 2 *    25 =    250  &lt;
+ 3 |                               &gt;  276
+   &gt;  5 * 3 / 3 *   250 =   1250  &lt;
+ 4 |                               &gt; 1526
+   &gt;  5 * 2 / 4 *  1250 =   3125  &lt;
+ 5 |                               &gt; 4651
+   &gt;  5 * 1 / 5 *  3125 =   3125  &lt;
+   --------------------------------&gt; 7776
+
+These same values can be obtained by using the standard formula
+for obtaining "j" events within "m" trials for events where "p"
+is the probability of success, and "q" is "1-p".  For six sided
+dice, use p=1 and q=5 [/6].  The formula is:
+
+      Sum of terms for r=j thru r=m where each term is:
+
+      f(m,r) p'r q'(m-r)
+
+  and f(m,r) is the factorial expression:  m! / ((m-r)! r!)
+===============================================================
+Summary:
+
+The attacker loses the first 6-sided dice by:
+
+D(sA) = 1(1) + 3(8) + 5(27) + 7(64) + 9(125) + 11(216) = 4109
+A(sD) = 1(36) + 7(35) + 19(32) + 37(27) + 61(20) + 91(11) = 4109
+
+The attacker loses the second 6-sided dice by:
+
+D(sA) = 11(16) + 9(56) + 7(108) + 5(160) + 3(200) + 1(216) = 3052
+A(sD) = 16(1) + 40(4) + 52(9) + 52(16) + 40(25) + 16(36) = 3052
+
+The defender loses the first 6-sided dice by:
+
+A(sD) = 1(0) + 7(1) + 19(4) + 37(9) + 61(16) + 91(25)  = 3667
+D(sA) = 1(215) + 3(208) + 5(189) + 7(152) + 9(91) + 11(0) = 3667
+
+The defender loses the second 6-sided dice by:
+
+D(sA) = 11(200) + 9(160) + 7(108) + 5(56) + 3(16) + 1(0) = 4724
+A(sD) = 16(0) + 40(11) + 52(20) + 52(27) + 40(32) + 16(35) = 4724
+
+We now have the following compare probabilities:
+
+    4109 = Attacker loses 1st, Defender wins 1st
+    3052 = Attacker loses 2nd, Defender wins 2nd
+    3667 = Defender loses 1st, Attacker wins 1st
+    4724 = Defender loses 2nd, Attacker wins 2nd
+
+     Attacker loses:    "3 on 2"   Attacker wins:
+        neither           2890       both (1st+2nd)
+        only 1st          1834       only 2nd
+        only 2nd           777       only 1st
+        both (1st+2nd)    2275       neither
+     ----------------------------------------------------------
+     Total events:        7776
+
+   |      1      2      3      4      5      6        216
+---|------------------------------------------
+ 1 |      1      7     19     37     61     91
+ 2 |     16     40     52     52     40     16
+ 3 |     91     61     37     19      7      1
+
+
+   |      1      2      3      4      5      6         36
+---|------------------------------------------
+ 1 |      1      3      5      7      9     11
+ 2 |     11      9      7      5      3      1
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+With 4-sides dice (pyramid shape):
+
+The attacker loses the first 4-sided dice by:
+
+D(sA) = 1(1) + 3(8) + 5(27) + 7(64) = 608
+A(sD) = 1(16) + 7(15) + 19(12) + 37(7) = 608
+
+The attacker loses the second 4-sided dice by:
+
+D(sA) = 7(10) + 5(32) + 3(54) + 1(64) = 456
+A(sD) = 10(1) + 22(4) + 22(9) + 10(16) = 456
+
+The defender loses the first 4-sided dice by:
+
+A(sD) = 1(0) + 7(1) + 19(4) + 37(9) = 416
+D(sA) = 1(63) + 3(56) + 5(37) + 7(0) = 416
+
+The defender loses the second 4-sided dice by:
+
+D(sA) = 7(54) + 5(32) + 3(10) + 1(0) = 568
+A(sD) = 10(0) + 22(7) + 22(12) + 10(15) = 568
+
+We now have the following compare probabilities:
+
+    608 = Attacker loses 1st, Defender wins 1st
+    456 = Attacker loses 2nd, Defender wins 2nd
+    416 = Defender loses 1st, Attacker wins 1st
+    568 = Defender loses 2nd, Attacker wins 2nd
+
+     Attacker loses:    "3 on 2"   Attacker wins:
+        neither            314       both (1st+2nd)
+        only 1st           254       only 2nd
+        only 2nd           102       only 1st
+        both (1st+2nd)     354       neither
+     ----------------------------------------------------------
+     Total events:        1024
+
+   |      1      2      3      4       64
+---|----------------------------
+ 1 |      1      7     19     37
+ 2 |     10     22     22     10
+ 3 |     37     19      7      1
+
+
+   |      1      2      3      4       16
+---|----------------------------
+ 1 |      1      3      5      7
+ 2 |      7      5      3      1
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+Definitions in Probability Theory:
+
+1.  An "experiment" is the process by which an observation
+    (or measurement) is obtained.
+
+2.  Each experiment may result in one or more outcomes which are
+    called "events";  so an "event" is a collection of outcomes,
+    called A, B, etc.
+
+3.  A "simple event" is an event that can't be decomposed;
+    it is one and only one outcome of an experiment, called E.
+
+4.  A "sample point" is a simple event.
+
+5.  The set of all sample points for an experiment is called
+    the "sample space" called S, consisting on N sample points.
+
+6.  If all sample points are equally probable, then the
+    "probability" associated with a sample point is: 1/N
+
+7.  The probability of event A is equal to the sum of the
+    probabilities of the sample points that compose A.
+    P(A) = n/N   where "n" sample points compose A.
+
+8.  The "complement" of event A is the collection of all
+    sample points in S that are not in A; denoted by: ~A.
+    Note:  P(A) + P(~A) = 1.
+
+9.  If there are M sample points in one experiment, and
+    N sample points in another, then there are MN sample
+    points in the combined experiment.  For example,
+    there are 6 possible outcomes tossing a single dice,
+    and 36 outcomes tossing two dice (6x6).
+
+10. A "permutation" is an ordered arrangement of "r" distinct
+    objects.  The number of ways of ordering "n" distinct objects
+    taken "r" at a time is given by:  R(n,r) = n!/(n-r)!
+
+11. The number of "combinations" of "n" objects taken "r" at a
+    time is given by:  C(n,r) = R(n,r)/r! = n!/r!(n-r)!
+
+12. If A and B are two events in S, then the "intersection"
+    of A and B is defined to be the event consisting of
+    all sample points that are in both A and B; denoted by AB.
+
+13. The "conditional probability" of A given that B has
+    occurred is denoted by:  P(A|B) and is given as:
+    P(A|B) = P(AB)/P(B)  and  P(B|A) = P(AB)/P(A)
+
+14. Two events, A and B, are said to be "independent" if
+    either  P(A|B) = P(A)
+    or      P(B|A) = P(B)
+    Otherwise, the events are said to be "dependent".
+
+15. P(AB) = P(A) x P(B|A)
+    or    = P(B) x P(A|B)
+    If A and B are independent, P(AB) = P(A) x P(B)
+    Stated another way, if p1, p2, ... pi are the separate
+    probabilities of the occurrence of "i" independent
+    events, then the probability, P, that "all" of these
+    events will occur in a single experiment is:
+    P = p1 x p2 x ... x pi
+
+16. In the case of "i" dependent events, if the probability
+    of the occurrence of the first event is p1, and if,
+    after this event has occurred, the probability of the
+    occurrence of the second event is p2, and if, after the
+    first and second events have occurred, the probability
+    of the occurrence of the third event is p3, and so on,
+    then the probability, P, that all events will occur
+    in the specified order is:
+    P = p1 x p2 x ... x pi
+    Example:  What is the probability that from amoung 23
+    randomly selected people at least two have birthdays
+    falling on the same day, that is, on the same month
+    and day (not necessarily the same year)?
+    Solution:  Failure occurs if all 23 people have
+    birthdays falling on different days of the year.  We
+    shall assume 365 days in a year, and that the probability
+    of a person having a birthday on any of these days is the
+    same.  Now for all 23 people to have different birthdays, all
+    of the following 23 dependent events must occur:  the first
+    person has a birthday on any day of the year, which occurs,
+    of course, with probability 1;  the second person has a
+    birthday on any day of the year EXCEPT the one on which the
+    first person has a birthday, for which the probability is
+    364/365; the third person has a birthday on any day of the
+    year EXCEPT those of the first two, for which the probability
+    is 363/365; and so on.  Therefore, the probability, Q, that
+    all 23 people have different birthdays is:
+        Q = p1 x p2 x ... x p23 = 0.493
+    so the desired probability, P , that at least two people
+    have birthdays falling on the same day is:  ~Q  or
+        P = 1 - Q = 1 - 0.493 = 0.507
+    a better than even chance!
+    Example:  A, B, and C in order toss a coin.  The first one
+    to throw heads wins.  What is A's probability of winning?
+    Solution:  If H stands for head, and T stands for tail,
+    then the following sequences indicate success for A:
+        H                  p1 = 1/2
+        TTTH               p2 = 1/16
+        TTTTTTH            p3 = 1/128
+        ...etc...
+    Therefore, P(A) = p1 x p2 x ... p(infinity)  which is
+    the geometric series:  a + ar + ar'2 + ar'3 + ... = a/(1-r)
+    where r, the ratio between any two consecutive numbers, is
+    between -1 and 1.  In this case, we have: a=1/2 and r=1/8,
+    so P(A) = (1/2)/(1-(1/8)) = (1/2)/(7/8) = 4/7
+
+17. Two events, A and B, are said to be "mutually exclusive"
+    if the event AB contains no sample points; P(AB) = 0.
+
+18. If A and B are two events in S, then the "union" of
+    A and B is defined to be the event consisting of all
+    sample points in A or B or both; denoted by:  AuB.
+
+19. P(AuB) = P(A) + P(B) - P(AB)
+    If A and B are mutually exclusive, P(AB) = 0 and
+    P(AuB) = P(A) + P(B)
+    Stated another way, if p1, p2, ..., pi are the separate
+    probabilities of the occurrence of "i" mutually exclusive
+    events, then the probability, P, that some "one" of these
+    events will occur in a single experiment is:
+    P = p1 + p2 + ... + pi
+
+20. Bayes' Rule.  Consider an experiment that involves the
+    selection of a sample from one of "k" populations, call
+    them H1, H2,...,Hk.  The sample is observed, but it is
+    not known from which population the sample was selected.
+    Suppose that the sample results in event A.  Then the
+    problem is to determine the population from which the
+    sample was selected.  This inference will be based on
+    the conditional probabilities, P(Hi|A), i=1,2,...,k.
+    To find the probability that the sample was selected
+    from population "i" given that event A was observed,
+    P(Hi|A),i=1,2,...,k, note that A could have been
+    observed if the sample were selected from population
+    1 or 2 or any one of the "k" populations, H1, H1,...,Hk.
+    The probability that population "i" was selected AND
+    that event A occurred is the intersection of the events
+    Hi and A, i.e., (AHi).  These events, (AH1), (AH2), ...,
+    (AHi), are mutually exclusive and hense:
+        P(A) = P(AH1) + P(AH2) + ... + P(AHi)
+    Then the probability that the sample came from the "i"
+    population is:
+          P(Hi|A) = P(AHi) / P(A)
+    or    P(Hi|A) = P(Hi) x P(A|Hi) / P(A)
+    or    P(Hi|A) = P(Hi) x P(A|Hi) / Sum j=1 to k, P(AHj)
+    or    P(Hi|A) = P(Hi) x P(A|Hi) / Sum j=1 to k, [P(Hj) x P(A|Hj)]
+    Therefore, finding P(Hi|A) requires knowledge of the
+    probabilities, P(Hi) and P(A|Hi), i=1,2,...,k.
+    P(Hi) is the probability that Hi is the contributing population,
+    and P(A|Hi) is the probability of A occurring in that population.
+    The sum of P(Hi),i=1,2...k, must total to unity.
+
+    Example:  Three machines produce similar parts.  Machine E
+    produces 40% of the total, machine F, 25%, and machine G,
+    35%.  On the average, 10% of machine E's parts are defective;
+    likewise, 5% for machine F, and 1% for machine G.  One part
+    is selected at random from the total output and is found to
+    be defective.  What is the probability that is was produced
+    by machine E?  Solution: Let D represent the event, selecting
+    a defective part.  We need to determine the probability of
+    the part having been selected from machine E given that the
+    part was defective, which is P(E|D) = P(E) x P(D|E) / P(D)
+    and P(D) is the sum of the following probabilities:
+        P(DE) = P(E) x P(D|E) = (0.40)(0.10) = 0.0400
+        P(DF) = P(F) x P(D|F) = (0.25)(0.05) = 0.0125
+        P(DG) = P(G) x P(D|G) = (0.35)(0.01) = 0.0035
+    so          P(D) = P(DE) + P(DF) + P(DG) = 0.0560
+    Therefore,  P(E|D) = (0.40)(0.10) / (0.0560) = 0.714
+    which shows that on the average machine E produces
+    71.4% of the defective parts.   (junk it!)
+
+    Example:  Suppose you are shown two rings that appear to be
+    identical.  Upon close examination of one of them you find
+    that it is a diamond.  Some time later, you again have an
+    opportunity to examine one of the rings (not knowing which
+    one) and this too is a diamond.  Still later, one of them
+    is lost.  What is the probability that the lost ring was
+    NOT a diamond?
+    Solution:  We know at least one ring was a diamond, so
+    either both were diamonds, or one was a diamond and one
+    was not a diamond.  In two previous examinations, we
+    examined a diamond.  The probability of this occurring
+    under the first assumption (both diamonds) is unity.
+    This same probability under the second assumption is
+    (1/2)(1/2) = 1/4.  Thus, the probability that both of
+    the rings were diamonds is:  P(H2) = (1)/(1+1/4) = 4/5.
+    Likewise, the probability that one is not a diamond is:
+    P(H1) = (1/4)/(1+1/4) = 1/5.  These sum to unity.
+    The probability a diamond was lost under the first
+    assumption equals unity, P(A|H2) = (1).  Under the
+    second assumption, the probability is: P(A|H1) = 1/2.
+    So the probability a diamond was lost because of any
+    one of these assumptions is:
+        P(A) = P(H2) x P(A|H2) + P(H1) x P(A|H1)
+        P(A) = (4/5)(1) + (1/5)(1/2)
+        P(A) = 4/5 + 1/10 = 9/10
+    So the probability that the lost ring was NOT a diamond
+    is only 1/10.  Not very good odds.
+
+21. A "binomial experiment" is one that possesses the following
+    properties:
+    a. The experiment consists of "n" identical trials.
+    b. Each trial results in one of two outcomes, success
+       or failure, denoted by S and F respectively.
+    c. The probability of success, p, remains the same from
+       trial to trial.  The probability of failure is equal
+       to (1-p) = q.
+    d. The trials are independent.
+    e. We are interested in "y", the number of successes
+       observed during the "n" trials.
+    The probability associated with a particular value of y
+    is simply the term involving p to the power y in the
+    expansion of (q+p)'y, which is written as:
+       P(y) = C(n,y) x p'y x q'(n-y)  for y=0,1,2,...,n
+
+    Example:  A rifleman has a consistent probability of 0.8
+    of hitting a target with a single shot.  If he fires four
+    shots at the target,
+    a) what is the probability of exactly two hits?
+       P(2) = C(4,2) x (.8)'2 x (.2)'2
+            = 4!/(2!x2!) x (.64) x (.04)
+            = 0.1536
+    b) what is the probability he will hit the target
+       at least two times?
+       P(at least two) = P(2) + P(3) + P(4)
+                       = 1 - P(0) - P(1)
+                       = 1 - 0.0016 - 0.0256
+                       = 0.9728
+    c) what is the probability of all four hits?
+       P(4) = C(4,4) x (.8)'4 x (.2)'0
+            = 4!/4!0! x (.8)'4 x (1)
+            = (.8)'4 = 0.4096
+
+22. Expected Value.  If "y" is a discrete random variable
+    with probability P(y), then the expected value of y is:
+       E(y) = Sum over all y, P(y) x y
+
+    Example:  8000 tickets are sold in a lottery at $1.00 each.
+    The prize is a $3000 automobile.  If you buy 2 tickets,
+    what is your expected gain?
+    Solution:  Either you will lose $2.00 (gain -$2.00) or
+    win $2998 ($3000 - $2) with probabilities of 7998/8000
+    and 2/8000 respectively.
+    E(y) = [-2 x (7998/8000)] + [2998 x (2/8000)]
+         = -$1.25
+    Therefore, if this lottery were repeated infinitely,
+    and you always bought two tickets, your average expected
+    gain would be:  -$1.25  (a loss).
+
+    Example:  On an average, 1 out of 50 policy holders dies
+    during a year.  What should be the yearly premium for
+    every $1000 of insurance coverage?
+    Solution:  We want to calculate E(y)=0.  If the event
+    does not occur during the year, the insurance company
+    will gain the premium, or y=C dollars.  If the event does
+    occur, the gain (a loss) will be: y=-(1000-C) dollars.
+    The probabilities of these two values is 49/50 and 1/50.
+    E(y) = 0 = C(49/50) + (C-1000)(1/50)
+           0 = C(50/50) - (1000)(1/50)
+          20 = C
+    So the insurance company must charge $20 to break even.
+
+</pre><hr><pre style="text-align: left; font-size: large;">
+ PL360 Program to determine Attacker 3x2 win table.
+
+ BEGIN  ARRAY 5 INTEGER CELL = 5(0);
+        INTEGER Y1 SYN CELL, Y2 SYN Y1(4),
+             Y3 SYN Y2(4), Y4 SYN Y3(4), Y5 SYN Y4(4);
+        ARRAY 3 INTEGER ASET;  ARRAY 2 INTEGER DSET;
+        BYTE A SYN ASET(3), B SYN A(4), C SYN B(4),
+             D SYN DSET(3), E SYN D(4);
+        ARRAY 133 BYTE OUTPUT = 133(" ");
+        EQUATE SIDES SYN 6;
+
+    FOR R1 := 1 STEP 1 UNTIL SIDES DO
+    FOR R2 := 1 STEP 1 UNTIL SIDES DO
+    FOR R3 := 1 STEP 1 UNTIL SIDES DO
+    BEGIN  STM(R1,R3,ASET);
+    X: IF A &lt; B THEN
+       BEGIN  A := A XOR B;
+              B := B XOR A;
+              A := A XOR B;
+       END;
+       IF B &lt; C THEN
+       BEGIN  B := B XOR C;
+              C := C XOR B;
+              B := B XOR C;
+              GOTO X;
+       END;
+       FOR R6 := 1 STEP 1 UNTIL SIDES DO
+       FOR R7 := 1 STEP 1 UNTIL SIDES DO
+       BEGIN  STM(R6,R7,DSET);
+           IF D &lt; E THEN
+           BEGIN  D := D XOR E;
+                  E := E XOR D;
+                  D := D XOR E;
+           END;
+           |- COMPUTE PROBABILITIES -|
+           R10 := 1 + Y5 =: Y5;
+           IF A &gt; D THEN  |- Attacker wins 1st dice -|
+           BEGIN  IF B &gt; E THEN R10 := 1 + Y1 =: Y1 |- wins both -|
+                  ELSE  R10 := 1 + Y3 =: Y3; |- wins only 1st -|
+           END ELSE IF B &gt; E THEN R10 := 1 + Y2 =: Y2  |- 2nd -|
+           ELSE R10 := 1 + Y4 =: Y4;   |- Attacker loses both -|
+       END;
+    END;
+    R1 := @OUTPUT(1); R2 := 1;  R3 := 9;  R5-R5;
+    FOR R4 := 1 STEP 1 UNTIL 5 DO
+    BEGIN  R0 := Y1(R5);  VALTOBCD;
+       R1 := @B1(R3);  R5 := @B5(4);
+    END;  R0 := @OUTPUT;  WRITE;
+ END.
+</pre>
+<hr>
+Last modified:
+<script language="JavaScript">
+var tconfig = '10_10_2014';
+var testlast=document.lastModified;
+var tsize=tconfig.length;
+if ((tsize > 20) || (tsize < 2))
+{ document.write(" "+testlast.substr(0,10)); }
+else document.write(" "+tconfig);
+</script> 10_10_2014<br> <!-- recent mod -->
+<hr>
+</td></tr></tbody></table>
+
+</body></html>
